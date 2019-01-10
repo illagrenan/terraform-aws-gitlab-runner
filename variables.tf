@@ -37,22 +37,38 @@ variable "amazon_optimized_amis" {
   type        = "map"
 
   default = {
-    us-east-1      = "ami-97785bed" # N. Virginia
-    us-east-2      = "ami-f63b1193" # Ohio
-    us-west-1      = "ami-824c4ee2" # N. California
-    us-west-2      = "ami-f2d3638a" # Oregon
-    eu-west-1      = "ami-d834aba1" # Ireland
-    eu-west-2      = "ami-403e2524" # London
-    eu-central-1   = "ami-5652ce39" # Frankfurt
-    eu-central-2   = "ami-8ee056f3" # Paris
-    ap-northeast-1 = "ami-ceafcba8" # Tokyo
-    ap-northeast-2 = "ami-863090e8" # Seoel
-    ap-southeast-1 = "ami-68097514" # Singapore
-    ap-southeast-2 = "ami-942dd1f6" # Sydney
-    ap-south-1     = "ami-531a4c3c" # Mumbai
-    ca-central-1   = "ami-a954d1cd" # Canada
-    sa-east-1      = "ami-84175ae8" # São Paulo
-    cn-north-1     = "ami-cb19c4a6" # Beijing
+    us-east-1      = "ami-97785bed"
+    # N. Virginia
+    us-east-2      = "ami-f63b1193"
+    # Ohio
+    us-west-1      = "ami-824c4ee2"
+    # N. California
+    us-west-2      = "ami-f2d3638a"
+    # Oregon
+    eu-west-1      = "ami-d834aba1"
+    # Ireland
+    eu-west-2      = "ami-403e2524"
+    # London
+    eu-central-1   = "ami-5652ce39"
+    # Frankfurt
+    eu-central-2   = "ami-8ee056f3"
+    # Paris
+    ap-northeast-1 = "ami-ceafcba8"
+    # Tokyo
+    ap-northeast-2 = "ami-863090e8"
+    # Seoel
+    ap-southeast-1 = "ami-68097514"
+    # Singapore
+    ap-southeast-2 = "ami-942dd1f6"
+    # Sydney
+    ap-south-1     = "ami-531a4c3c"
+    # Mumbai
+    ca-central-1   = "ami-a954d1cd"
+    # Canada
+    sa-east-1      = "ami-84175ae8"
+    # São Paulo
+    cn-north-1     = "ami-cb19c4a6"
+    # Beijing
   }
 }
 
@@ -121,6 +137,12 @@ variable "runners_privilled" {
   description = "Runners will run in privilled mode, will be used in the runner config.toml"
   type        = "string"
   default     = "true"
+}
+
+variable "runners_cache_shared" {
+  description = "Runners will share cache"
+  type        = "string"
+  default     = "false"
 }
 
 variable "runners_monitoring" {

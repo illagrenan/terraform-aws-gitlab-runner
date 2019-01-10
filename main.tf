@@ -11,14 +11,16 @@ resource "aws_security_group" "runner" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [
+      "0.0.0.0/0"]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [
+      "0.0.0.0/0"]
   }
 
   tags = "${local.tags}"
@@ -36,7 +38,8 @@ resource "aws_security_group_rule" "docker" {
   from_port   = 2376
   to_port     = 2376
   protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "0.0.0.0/0"]
 
   security_group_id = "${aws_security_group.docker_machine.id}"
 }
@@ -46,7 +49,8 @@ resource "aws_security_group_rule" "ssh" {
   from_port   = 22
   to_port     = 22
   protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "0.0.0.0/0"]
 
   security_group_id = "${aws_security_group.docker_machine.id}"
 }
@@ -56,7 +60,8 @@ resource "aws_security_group_rule" "out_all" {
   from_port   = 0
   to_port     = 65535
   protocol    = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "0.0.0.0/0"]
 
   security_group_id = "${aws_security_group.docker_machine.id}"
 }
@@ -111,6 +116,7 @@ data "template_file" "runners" {
     runners_concurrent                = "${var.runners_concurrent}"
     runners_image                     = "${var.runners_image}"
     runners_privilled                 = "${var.runners_privilled}"
+    runners_cache_shared              = "${var.runners_cache_shared}"
     runners_idle_count                = "${var.runners_idle_count}"
     runners_idle_time                 = "${var.runners_idle_time}"
     runners_off_peak_timezone         = "${var.runners_off_peak_timezone}"
@@ -133,7 +139,8 @@ data "template_file" "runners" {
 
 resource "aws_autoscaling_group" "gitlab_runner_instance" {
   name                = "${var.environment}-as-group"
-  vpc_zone_identifier = ["${var.subnet_id_gitlab_runner}"]
+  vpc_zone_identifier = [
+    "${var.subnet_id_gitlab_runner}"]
 
   # vpc_zone_identifier       = ["${var.subnets}"]
   min_size                  = "1"
@@ -142,11 +149,13 @@ resource "aws_autoscaling_group" "gitlab_runner_instance" {
   health_check_grace_period = 0
   launch_configuration      = "${aws_launch_configuration.gitlab_runner_instance.name}"
 
-  tags = ["${data.null_data_source.tags.*.outputs}"]
+  tags = [
+    "${data.null_data_source.tags.*.outputs}"]
 }
 
 resource "aws_launch_configuration" "gitlab_runner_instance" {
-  security_groups      = ["${aws_security_group.runner.id}"]
+  security_groups      = [
+    "${aws_security_group.runner.id}"]
   key_name             = "${aws_key_pair.key.key_name}"
   image_id             = "${lookup(var.amazon_optimized_amis, var.aws_region)}"
   user_data            = "${data.template_file.user_data.rendered}"
