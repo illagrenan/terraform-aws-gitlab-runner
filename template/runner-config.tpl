@@ -26,6 +26,7 @@ check_interval = 0
     SecretKey = "${bucket_user_secret_key}"
     BucketName = "${bucket_name}"
     Insecure = false
+    Shared = true
   [runners.machine]
     IdleCount = ${runners_idle_count}
     IdleTime = ${runners_idle_time}
