@@ -155,7 +155,8 @@ resource "aws_autoscaling_group" "gitlab_runner_instance" {
   launch_configuration      = "${aws_launch_configuration.gitlab_runner_instance.name}"
 
   tags = [
-    "${data.null_data_source.tags.*.outputs}"]
+    "${data.null_data_source.tags.*.outputs}"
+  ]
 }
 
 resource "aws_launch_configuration" "gitlab_runner_instance" {
