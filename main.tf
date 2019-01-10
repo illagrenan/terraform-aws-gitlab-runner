@@ -95,6 +95,11 @@ data "template_file" "gitlab_runner" {
   }
 }
 
+locals {
+  registry_mirror_full_option = ",\"engine-registry-mirror=${var.runners_registry_mirror}\""
+  final_registry_mirror = "${replace(local.registry_mirror_full_option, ",\"engine-registry-mirror=\"", "")}"
+}
+
 data "template_file" "runners" {
   template = "${file("${path.module}/template/runner-config.tpl")}"
 
@@ -116,7 +121,8 @@ data "template_file" "runners" {
     runners_concurrent                = "${var.runners_concurrent}"
     runners_image                     = "${var.runners_image}"
     runners_privilled                 = "${var.runners_privilled}"
-//    runners_registry_mirror           = "${var.runners_registry_mirror}"
+    runners_registry_mirror           = "${var.runners_registry_mirror}"
+    runners_registry_mirror           = "${local.final_registry_mirror}"
     runners_cache_shared              = "${var.runners_cache_shared}"
     runners_idle_count                = "${var.runners_idle_count}"
     runners_idle_time                 = "${var.runners_idle_time}"
