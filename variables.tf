@@ -145,6 +145,14 @@ variable "runners_cache_shared" {
   default     = "false"
 }
 
+// https://docs.gitlab.com/runner/configuration/autoscale.html#distributed-container-registry-mirroring
+// https://docs.gitlab.com/runner/install/registry_and_cache_servers.html
+variable "runners_registry_mirror" {
+  description = "Runners will share cache"
+  type        = "string"
+  default     = ""
+}
+
 variable "runners_monitoring" {
   description = "Enable detailed cloudwatch monitoring for spot instances."
   default     = false
