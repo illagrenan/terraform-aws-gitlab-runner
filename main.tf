@@ -12,7 +12,8 @@ resource "aws_security_group" "runner" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [
-      "0.0.0.0/0"]
+      "0.0.0.0/0"
+    ]
   }
 
   egress {
@@ -20,7 +21,8 @@ resource "aws_security_group" "runner" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = [
-      "0.0.0.0/0"]
+      "0.0.0.0/0"
+    ]
   }
 
   tags = "${local.tags}"
@@ -97,7 +99,7 @@ data "template_file" "gitlab_runner" {
 
 locals {
   registry_mirror_full_option = ",\"engine-registry-mirror=${var.runners_registry_mirror}\""
-  final_registry_mirror = "${replace(local.registry_mirror_full_option, ",\"engine-registry-mirror=\"", "")}"
+  final_registry_mirror       = "${replace(local.registry_mirror_full_option, ",\"engine-registry-mirror=\"", "")}"
 }
 
 data "template_file" "runners" {
